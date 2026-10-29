@@ -1,0 +1,14 @@
+.env
+.venv
+.git
+.pytest_cache
+.ruff_cache
+__pycache__
+node_modules
+dist
+data
+*.db
+*.db-shm
+*.db-wal
+*.tar.gz
+tests

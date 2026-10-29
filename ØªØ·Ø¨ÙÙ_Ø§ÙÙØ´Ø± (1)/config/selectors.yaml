@@ -1,0 +1,73 @@
+version: 1
+platforms:
+  x:
+    session_url: https://x.com/home
+    session_valid: '[data-testid="SideNav_AccountSwitcher_Button"]'
+    login_required: 'input[name="text"],a[href="/login"]'
+    source:
+      item: 'article[data-testid="tweet"]'
+      text: '[data-testid="tweetText"]'
+      link: 'a[href*="/status/"]'
+      image: 'img:not([src*="profile_images"])'
+      video: 'video'
+    publish:
+      start_url: https://x.com/compose/post
+      success: 'div[data-testid="toast"]'
+      steps:
+        - {action: goto, value: 'https://x.com/compose/post'}
+        - {action: fill, selector: '[data-testid="tweetTextarea_0"]', value: '{text}'}
+        - {action: upload, selector: 'input[data-testid="fileInput"]', if_media: true}
+        - {action: click, selector: '[data-testid="tweetButton"]'}
+  instagram:
+    session_url: https://www.instagram.com/
+    session_valid: 'a[href="/direct/inbox/"],svg[aria-label="Settings"]'
+    login_required: 'input[name="username"],a[href="/accounts/login/"]'
+    source:
+      item: 'article'
+      text: 'h1'
+      link: 'a[href*="/p/"],a[href*="/reel/"]'
+      image: 'img:not([alt*="profile"])'
+      video: 'video'
+    publish:
+      start_url: https://www.instagram.com/
+      # إذا لم يظهر تأكيد النجاح لديك، احذف success ليصبح الوضع "يحتاج تأكيدًا" بدل الاعتماد على تخمين.
+      success: 'div[role="dialog"] img[alt*="Shared"],div[role="dialog"] div:has-text("Your post has been shared"),div[role="dialog"] div:has-text("تمت مشاركة")'
+      steps:
+        - {action: goto, value: 'https://www.instagram.com/'}
+        - {action: click, selector: 'role=link[name=/^(Create|إنشاء)$/]'}
+        - {action: upload, selector: 'input[type="file"]', if_media: true, required: true}
+        - {action: click, selector: 'role=button[name=/^(Next|التالي)$/]'}
+        - {action: click, selector: 'role=button[name=/^(Next|التالي)$/]'}
+        - {action: fill, selector: 'div[role="textbox"][contenteditable="true"],textarea[aria-label*="caption"],textarea[aria-label*="تعليق"]', value: '{text}'}
+        - {action: click, selector: 'role=button[name=/^(Share|مشاركة)$/]'}
+  tiktok:
+    session_url: https://www.tiktok.com/
+    session_valid: '[data-e2e="profile-icon"],a[href*="/setting"]'
+    login_required: '[data-e2e="login-button"],a[href*="/login"]'
+    source:
+      item: '[data-e2e="user-post-item"]'
+      text: 'img[alt]'
+      link: 'a[href*="/video/"]'
+      image: 'img'
+      video: 'video'
+    publish:
+      start_url: https://www.tiktok.com/upload
+      success: 'div:has-text("Video uploaded"),div:has-text("تم رفع الفيديو"),div:has-text("Your video has been posted")'
+      steps:
+        - {action: goto, value: 'https://www.tiktok.com/upload'}
+        - {action: upload, selector: 'input[type="file"]', if_media: true, required: true}
+        - {action: fill, selector: 'div[contenteditable="true"]', value: '{text}'}
+        - {action: click, selector: 'button:has-text("Post"),button:has-text("نشر")'}
+  telegram:
+    session_url: https://web.telegram.org/a/
+    session_valid: '#MessageList, .messages-layout'
+    login_required: '#auth-phone-number-form, input[type="tel"]'
+    source: {}
+    publish:
+      start_url: '{target_url}'
+      # تيليجرام لا يملك Toast موثوقًا موحدًا؛ يبقى بلا success لتفادي تكرار الرسالة عند غموض النتيجة.
+      steps:
+        - {action: goto, value: '{target_url}'}
+        - {action: fill, selector: '#editable-message-text, div[contenteditable="true"][data-placeholder]', value: '{text}'}
+        - {action: upload, selector: 'input[type="file"]', if_media: true}
+        - {action: click, selector: 'button[aria-label="Send Message"],button[aria-label="إرسال الرسالة"],.btn-send'}

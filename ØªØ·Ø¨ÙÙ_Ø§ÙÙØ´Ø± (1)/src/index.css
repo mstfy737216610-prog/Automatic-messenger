@@ -1,0 +1,140 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+    --background: 150 13% 5%;
+    --foreground: 120 12% 93%;
+    --card: 150 12% 8%;
+    --card-foreground: 120 12% 93%;
+    --popover: 150 12% 9%;
+    --popover-foreground: 120 12% 93%;
+    --primary: 160 72% 65%;
+    --primary-foreground: 156 35% 8%;
+    --secondary: 150 10% 13%;
+    --secondary-foreground: 120 12% 93%;
+    --muted: 150 9% 13%;
+    --muted-foreground: 140 7% 63%;
+    --accent: 155 16% 16%;
+    --accent-foreground: 160 72% 72%;
+    --destructive: 4 69% 61%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 150 11% 17%;
+    --input: 150 11% 21%;
+    --ring: 160 72% 65%;
+    --radius: 0.75rem;
+    --sidebar-background: 150 14% 6%;
+    --sidebar-foreground: 140 8% 72%;
+    --sidebar-primary: 160 72% 65%;
+    --sidebar-primary-foreground: 156 35% 8%;
+    --sidebar-accent: 155 16% 13%;
+    --sidebar-accent-foreground: 160 72% 72%;
+    --sidebar-border: 150 11% 15%;
+    --sidebar-ring: 160 72% 65%;
+  }
+
+  * {
+    box-sizing: border-box;
+    border-color: hsl(var(--border));
+  }
+
+  html {
+    min-width: 320px;
+    background: #0c100f;
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+    min-width: 320px;
+    min-height: 100vh;
+    overflow-x: hidden;
+    background: #0c100f;
+    color: #e9efec;
+    font-family: 'Hanken Grotesk', 'Tajawal', system-ui, sans-serif;
+    font-size: 15px;
+    line-height: 1.65;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  button,
+  a,
+  input,
+  textarea,
+  select,
+  summary {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  button,
+  select,
+  summary,
+  input[type='checkbox'],
+  input[type='color'] {
+    cursor: pointer;
+  }
+
+  button:disabled,
+  input:disabled,
+  select:disabled {
+    cursor: not-allowed;
+    opacity: 0.52;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  img,
+  video {
+    display: block;
+    max-width: 100%;
+  }
+
+  h1,
+  h2,
+  h3,
+  p {
+    margin: 0;
+  }
+
+  h1,
+  h2,
+  h3,
+  strong,
+  button {
+    font-family: 'Tajawal', 'Hanken Grotesk', system-ui, sans-serif;
+  }
+
+  ::selection {
+    background: #65e6bd;
+    color: #0a2119;
+  }
+
+  :focus-visible {
+    outline: 2px solid #65e6bd;
+    outline-offset: 3px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
